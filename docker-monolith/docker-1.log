@@ -1,0 +1,8 @@
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+mac798/ubuntu-tmp-file   latest              f19e3c35db01        2 minutes ago       115MB
+hello-world              latest              4ab4c602aa5e        4 weeks ago         1.84kB
+ubuntu                   16.04               b9e15a5d1e1a        4 weeks ago         115MB
+
+Образ содержит начальный образ файловой системы и параметры запуска, в то время
+как контейнер это экземпляр работающей или когда-либо запущенного экземпляра образа,
+Образ является "зародышем" контейнера.
