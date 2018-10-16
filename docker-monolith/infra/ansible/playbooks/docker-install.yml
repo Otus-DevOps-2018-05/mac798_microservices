@@ -1,0 +1,15 @@
+---
+- name: Install Docker on ubuntu
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Docker repository key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+    - name: Setup Docker APT repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    - name: Install docker
+      package:
+        name: docker-ce
+        state: present
