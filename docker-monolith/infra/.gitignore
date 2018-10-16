@@ -1,0 +1,4 @@
+vault.key
+*.tfvars
+*.tfstate
+*.tfstate.backup
