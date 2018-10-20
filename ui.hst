@@ -1,0 +1,31 @@
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+7f0f6c16f657        12 hours ago        /bin/sh -c #(nop)  CMD ["puma"]                 0B                  
+b3b84dccc8db        12 hours ago        /bin/sh -c #(nop)  ENV COMMENT_SERVICE_PORT=…   0B                  
+e05fde06baa6        12 hours ago        /bin/sh -c #(nop)  ENV COMMENT_SERVICE_HOST=…   0B                  
+5c0aea2aed30        12 hours ago        /bin/sh -c #(nop)  ENV POST_SERVICE_PORT=5000   0B                  
+8a5e348a829e        12 hours ago        /bin/sh -c #(nop)  ENV POST_SERVICE_HOST=post   0B                  
+1cb73f3dfd92        12 hours ago        /bin/sh -c #(nop) COPY dir:70f17f0b31f486246…   14.9kB              
+1e49757a8ed9        12 hours ago        /bin/sh -c bundle install                       47.7MB              
+4737d3bb92eb        12 hours ago        /bin/sh -c #(nop) COPY multi:76512357e687ffc…   1.74kB              
+07bb5075aeb4        12 hours ago        /bin/sh -c #(nop) WORKDIR /app                  0B                  
+a5562836467a        12 hours ago        /bin/sh -c mkdir $APP_HOME                      0B                  
+406528cf32d6        12 hours ago        /bin/sh -c #(nop)  ENV APP_HOME=/app            0B                  
+e31826c78b36        12 hours ago        /bin/sh -c apt-get update -qq && apt-get ins…   15.6MB              
+6c8e6f9667b2        5 months ago        /bin/sh -c #(nop)  CMD ["irb"]                  0B                  
+<missing>           5 months ago        /bin/sh -c mkdir -p "$GEM_HOME" "$BUNDLE_BIN…   0B                  
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV PATH=/usr/local/bundl…   0B                  
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV BUNDLE_PATH=/usr/loca…   0B                  
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV GEM_HOME=/usr/local/b…   0B                  
+<missing>           5 months ago        /bin/sh -c set -ex   && buildDeps='   bison …   104MB               
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV BUNDLER_VERSION=1.16.1   0B                  
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV RUBYGEMS_VERSION=2.7.6   0B                  
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV RUBY_DOWNLOAD_SHA256=…   0B                  
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV RUBY_VERSION=2.2.10      0B                  
+<missing>           5 months ago        /bin/sh -c #(nop)  ENV RUBY_MAJOR=2.2           0B                  
+<missing>           5 months ago        /bin/sh -c mkdir -p /usr/local/etc  && {   e…   45B                 
+<missing>           5 months ago        /bin/sh -c set -ex;  apt-get update;  apt-ge…   320MB               
+<missing>           5 months ago        /bin/sh -c apt-get update && apt-get install…   123MB               
+<missing>           5 months ago        /bin/sh -c set -ex;  if ! command -v gpg > /…   0B                  
+<missing>           5 months ago        /bin/sh -c apt-get update && apt-get install…   41.2MB              
+<missing>           5 months ago        /bin/sh -c #(nop)  CMD ["bash"]                 0B                  
+<missing>           5 months ago        /bin/sh -c #(nop) ADD file:3e6141c0c9cb74b14…   127MB               
