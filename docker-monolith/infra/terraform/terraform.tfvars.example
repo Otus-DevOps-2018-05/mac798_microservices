@@ -1,0 +1,4 @@
+region = "europe-north1"
+project_id = "micro-svc"
+app_ports = ["22","9292"]
+vm_count = "3"

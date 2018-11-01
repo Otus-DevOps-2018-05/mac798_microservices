@@ -1,0 +1,15 @@
+[Unit]
+Description=Docked application {{ appname }}
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop {{ appname }}
+ExecStartPre=-/usr/bin/docker rm {{ appname }}
+ExecStartPre=/usr/bin/docker pull {{ app_docker_image }}
+ExecStart=/usr/bin/docker run --name {{ appname }} --rm -p {{app_port}}:{{app_port}} {{ app_docker_image }}
+
+[Install]
+WantedBy=multi-user.target

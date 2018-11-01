@@ -1,0 +1,20 @@
+---
+  - name: Run docker container application
+    vars:
+      app_destination_tag: docked-reddit
+      app_docker_image: mac798/otus-reddit:1.0
+      app_port: 9292
+      appname: reddit
+    become: true
+
+    hosts: "{{ app_destination_tag }}"
+
+    tasks:
+      - name: Enable docker service
+        systemd: name=docker enabled=yes state=started
+      - name: Install  docked app service Unit file
+        template:
+          src: ../templates/docked-reddit.service.j2
+          dest: /lib/systemd/system/docked-reddit.service
+      - name: Install & start docked application service
+        systemd: name=docked-reddit enabled=yes state=started
