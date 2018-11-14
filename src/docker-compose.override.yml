@@ -12,7 +12,9 @@ services:
   ui:
     build: ./ui
     image: ${USERNAME}/ui:${UI_IMG_VER}
-    command: puma --debug -w 2
+    volumes:
+        - dc-scripts:/dc-scripts
+    command: /bin/ash /dc-scripts/ui-go.sh --debug -w 2
     ports:
       - ${PUBLISHED_PORT}:9292/tcp
       - 9292:9292/tcp
@@ -23,6 +25,9 @@ services:
   post:
     build: ./post-py
     image: ${USERNAME}/post:${POST_IMG_VER}
+    command: /bin/ash /dc-scripts/post-go.sh --debug -w 2
+    volumes:
+        - dc-scripts:/dc-scripts
     networks:
       back_net:
         aliases:
@@ -33,12 +38,10 @@ services:
   comment:
     build: ./comment
     image: ${USERNAME}/comment:${COMMENT_IMG_VER}
-        volumes:
-            - type: bind
-                source: ./comment
-                target: /app
-    command: puma --debug -w 2
+    volumes:
+        - dc-scripts:/dc-scripts
 
+    command: /bin/ash /dc-scripts/comment-go.sh --debug -w 2
     networks:
       back_net:
         aliases:
