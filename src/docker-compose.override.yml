@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.4'
 services:
   post_db:
     image: mongo:${MONGO_IMG_VER}
@@ -13,7 +13,9 @@ services:
     build: ./ui
     image: ${USERNAME}/ui:${UI_IMG_VER}
     volumes:
-        - dc-scripts:/dc-scripts
+      - type: bind
+        source: /home/docker-user/dc-scripts
+        target: /dc-scripts
     command: /bin/ash /dc-scripts/ui-go.sh --debug -w 2
     ports:
       - ${PUBLISHED_PORT}:9292/tcp
@@ -27,7 +29,10 @@ services:
     image: ${USERNAME}/post:${POST_IMG_VER}
     command: /bin/ash /dc-scripts/post-go.sh --debug -w 2
     volumes:
-        - dc-scripts:/dc-scripts
+      - type: bind
+        source: /home/docker-user/dc-scripts
+        target: /dc-scripts
+
     networks:
       back_net:
         aliases:
@@ -39,7 +44,9 @@ services:
     build: ./comment
     image: ${USERNAME}/comment:${COMMENT_IMG_VER}
     volumes:
-        - dc-scripts:/dc-scripts
+      - type: bind
+        source: /home/docker-user/dc-scripts
+        target: /dc-scripts
 
     command: /bin/ash /dc-scripts/comment-go.sh --debug -w 2
     networks:
