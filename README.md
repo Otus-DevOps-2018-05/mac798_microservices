@@ -1,3 +1,8 @@
+# дз №16 (gitlab-ci-1)
+
+* создал экземпляр вм для установки докер-образа gitlab
+`docker-machine create --driver google --google-project micro-svc --google-zone europe-north1-b --google-machine-type n1-highcpu-2 --google-open-port 80/tcp --google-open-port 443/tcp  --google-disk-size 100 docker-gitlab`
+
 # дз №15 (docker-4)
 * запущены образы docker c различными сетевыми драйверами (none, host), как указано на слайдах
 * сделана попытка запустить несколько контейнеров nginx с использованием сетового драйвера host. запущенным остался только самый первый, т.к. "последователи" не могут открыть серверный сокет на том же адресе и порту, что и первый веб-сервер.
