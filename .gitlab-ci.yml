@@ -3,6 +3,8 @@ stages:
     - build
     - test
     - review
+    - stage
+    - production
 
 variables:
     DATABASE_URL: 'mongodb://mongo/user_posts'
@@ -27,7 +29,25 @@ test_integration_job:
 deploy_dev_job:
     stage: review
     script:
-        - echo 'Deploy'
+        - echo 'Deploy (Dev Review)'
     environment:
         name: dev
         url: http://dev.example.com
+staging:
+    stage: stage
+    script:
+        - echo 'Deploy'
+    when:
+        manual
+    environment:
+        name: stage
+        url: http://stage.example.com
+production:
+    stage: production
+    script:
+        - echo 'Deploy'
+    when:
+        manual
+    environment:
+        name: stage
+        url: http://example.com
