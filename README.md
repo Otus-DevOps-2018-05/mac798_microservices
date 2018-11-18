@@ -1,7 +1,17 @@
 # дз №16 (gitlab-ci-1)
 
-* создал экземпляр вм для установки докер-образа gitlab
-`docker-machine create --driver google --google-project micro-svc --google-zone europe-north1-b --google-machine-type n1-highcpu-2 --google-open-port 80/tcp --google-open-port 443/tcp  --google-disk-size 100 docker-gitlab`
+* создан экземпляр вм для установки докер-образа gitlab
+`docker-machine create --driver google --google-project micro-svc --google-zone europe-north1-b --google-machine-type custom-1-3840 --google-open-port 80/tcp --google-open-port 443/tcp  --google-disk-size 100 docker-gitlab`
+* добавлен и запущен контейнер gitlab-omnibus
+* произведена настройка gitlab через веб-интерфейс
+* на сервер gitlab добавлен проект
+* добавлен контейнер gitlab-runner
+* gitlab-runner зарегистрирован в проекте
+* добавлен тест simpletest.rb
+* изменен параметр concurrent в /etc/gitlab-runner/config.toml
+## задание со ( * )
+* Для запуска нескольких экземпляров gittlab-runner создана конфигурация terraform (хотя по моему мнению такая разовая операция более достойна shell-скрипта, который будет как минимум короче, но вначале курса сказали, что это табу ;)) 
+* создана интеграция с каналом #sergey_makeev в DevOps team https://devops-team-otus.slack.com/messages/CB9U1QKPZ
 
 # дз №15 (docker-4)
 * запущены образы docker c различными сетевыми драйверами (none, host), как указано на слайдах
