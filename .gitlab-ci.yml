@@ -18,7 +18,8 @@ test_unit_job:
     services:
         - mongo:latest
     script:
-        - cd reddit
+        - pwd
+        - ls
         - ruby simpletest.rb
 test_integration_job:
     stage: test
