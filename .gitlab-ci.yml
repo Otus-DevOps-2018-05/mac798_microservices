@@ -12,10 +12,21 @@ before_script:
     - cd reddit
     - gem install bundler
     - bundle install
+
+create env server:
+    stage: build
+    tags:
+        - gcloud
+    script:
+        - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud-cred.json
+        - gcloud compute instances list
+
 build_job:
     stage: build
     script:
         - echo 'Building'
+        - apk add docker
+        - docker build -t reddit-$CI_ENVIRONMENT_SLUG:latest
 
 test_unit_job:
     stage: test
@@ -39,7 +50,9 @@ deploy_dev_job:
 
 branch review:
     stage: review
-    script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
+    script:
+        - echo "Deploy to $CI_ENVIRONMENT_SLUG"
+        - docker run
     environment:
         name: branch/$CI_COMMIT_REF_NAME
         url: http://$CI_ENVIRONMENT_SLUG.example.com
