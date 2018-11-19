@@ -13,17 +13,14 @@ variables:
 #    - gem install bundler
 #    - bundle install
 
-create env server:
-    stage: build
-    image: google/cloud-sdk:alpine
-    tags:
-        - gcloud
-    script:
-        - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud/credentials.json
-        - echo "CRED PATH '$GOOGLE_APPLICATION_CREDENTIALS'"
-        - ls -la "$GOOGLE_APPLICATION_CREDENTIALS"
-        - cat "$GOOGLE_APPLICATION_CREDENTIALS"
-        - gcloud compute instances list
+#create env server:
+#    stage: build
+#    image: google/cloud-sdk:alpine
+#    tags:
+#        - gcloud
+#    script:
+#        - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud/credentials.json
+#        - gcloud compute instances create reddit-$CI_ENVIRONMENT_SLUG --tags docker,reddit --machine-type g1-small --region europe-north1-b --image-family ubuntu-docker --disk-size 20
 
 #build_job:
 #    stage: build
@@ -67,7 +64,7 @@ branch review:
         - docker
     script:
         - echo "Deploy to $CI_ENVIRONMENT_SLUG"
-#        - docker run
+#        - docker run ...
     environment:
         name: branch/$CI_COMMIT_REF_NAME
         url: http://$CI_ENVIRONMENT_SLUG.example.com
