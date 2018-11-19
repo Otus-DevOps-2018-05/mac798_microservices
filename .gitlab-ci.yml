@@ -15,6 +15,7 @@ variables:
 
 create env server:
     stage: build
+    image: google/cliud-sdk:alpine
     tags:
         - gcloud
     script:
