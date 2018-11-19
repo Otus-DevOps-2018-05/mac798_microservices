@@ -19,7 +19,7 @@ create env server:
     tags:
         - gcloud
     script:
-        - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud-cred.json
+        - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud/credentials.json
         - echo "CRED PATH '$GOOGLE_APPLICATION_CREDENTIALS'"
         - ls -la "$GOOGLE_APPLICATION_CREDENTIALS"
         - cat "$GOOGLE_APPLICATION_CREDENTIALS"
