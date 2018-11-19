@@ -53,6 +53,7 @@
  из Dockerfile совпадают с образами первых шагов контейнера comment, поэтому
  выполнение идёт не с первого шага, а вытаскивается из кеша.
 
+
 ## Задание со ( * ) {1}
 * для передачи передачи переменных окружения в контейнер используется опция `-e`,
 поэтому для запуска контейнеров с измененными сетевыми именами, например при
@@ -63,6 +64,7 @@ docker run -d --network=reddit --network-alias=comment-01 -e COMMENT_DATABASE_HO
 docker run -d --network=reddit --network-alias=post-01 -e POST_DATABASE_HOST=post-db-01 mac798/post:1.0
 docker run -d --network=reddit -e POST_SERVICE_HOST=post-01 -e COMMENT_SERVICE_HOST=comment-01 -p 9292:9292 mac798/ui:1.0
 ```
+
 ## задание со слайдов 17-18
 * произведено уменьшение размера образа ui
 
