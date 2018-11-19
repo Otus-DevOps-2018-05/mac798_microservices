@@ -33,7 +33,7 @@ test_unit_job:
     services:
         - mongo:latest
     tags:
-        ruby
+        - ruby
     script:
         - cd reddit
         - gem install bundler
@@ -43,14 +43,14 @@ test_unit_job:
 test_integration_job:
     stage: test
     tags:
-        linux
+        - linux
     script:
         - echo 'Testing 2'
 
 deploy_dev_job:
     stage: review
     tags:
-        linux
+        - linux
     script:
         - echo 'Deploy (Dev Review)'
     environment:
@@ -60,7 +60,7 @@ deploy_dev_job:
 branch review:
     stage: review
     tags:
-        docker
+        - docker
     script:
         - echo "Deploy to $CI_ENVIRONMENT_SLUG"
 #        - docker run
@@ -76,7 +76,7 @@ staging:
     stage: stage
     when: manual
     tags:
-        linux
+        - linux
     only:
         - /^\d+\.\d+\.\d+/
     script:
@@ -89,7 +89,7 @@ production:
     stage: production
     when: manual
     tags:
-        linux
+        - linux
     only:
         - /^\d+\.\d+\.\d+/
     script:
