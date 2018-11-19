@@ -21,6 +21,7 @@ create env server:
     script:
         - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud-cred.json
         - env
+        - car $GOOGLE_APPLICATION_CREDENTIALS
         - gcloud compute instances list
 
 #build_job:
