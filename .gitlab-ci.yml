@@ -8,10 +8,10 @@ stages:
 
 variables:
     DATABASE_URL: 'mongodb://mongo/user_posts'
-before_script:
-    - cd reddit
-    - gem install bundler
-    - bundle install
+#before_script:
+#    - cd reddit
+#    - gem install bundler
+#    - bundle install
 
 create env server:
     stage: build
@@ -21,27 +21,36 @@ create env server:
         - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud-cred.json
         - gcloud compute instances list
 
-build_job:
-    stage: build
-    script:
-        - echo 'Building'
-        - apk add docker
-        - docker build -t reddit-$CI_ENVIRONMENT_SLUG:latest
+#build_job:
+#    stage: build
+#    script:
+#        - echo 'Building'
+#        - apk add docker
+#        - docker build -t reddit-$CI_ENVIRONMENT_SLUG:latest
 
 test_unit_job:
     stage: test
     services:
         - mongo:latest
+    tags:
+        ruby
     script:
+        - cd reddit
+        - gem install bundler
+        - bundle install
         - ruby simpletest.rb
 
 test_integration_job:
     stage: test
+    tags:
+        linux
     script:
         - echo 'Testing 2'
 
 deploy_dev_job:
     stage: review
+    tags:
+        linux
     script:
         - echo 'Deploy (Dev Review)'
     environment:
@@ -50,9 +59,11 @@ deploy_dev_job:
 
 branch review:
     stage: review
+    tags:
+        docker
     script:
         - echo "Deploy to $CI_ENVIRONMENT_SLUG"
-        - docker run
+#        - docker run
     environment:
         name: branch/$CI_COMMIT_REF_NAME
         url: http://$CI_ENVIRONMENT_SLUG.example.com
@@ -64,6 +75,8 @@ branch review:
 staging:
     stage: stage
     when: manual
+    tags:
+        linux
     only:
         - /^\d+\.\d+\.\d+/
     script:
@@ -75,6 +88,8 @@ staging:
 production:
     stage: production
     when: manual
+    tags:
+        linux
     only:
         - /^\d+\.\d+\.\d+/
     script:
