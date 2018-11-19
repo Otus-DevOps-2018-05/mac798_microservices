@@ -22,11 +22,15 @@ variables:
 #        - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud/credentials.json
 #        - gcloud compute instances create reddit-$CI_ENVIRONMENT_SLUG --tags docker,reddit --machine-type g1-small --region europe-north1-b --image-family ubuntu-docker --disk-size 20
 
-#build_job:
-#    stage: build
-#    script:
-#        - echo 'Building'
-#        - apk add docker
+build_job:
+    image: alpine
+    stage: build
+    tags:
+        - docker
+        - linux
+    script:
+        - echo 'Building'
+        - apk add docker
 #        - docker build -t reddit-$CI_ENVIRONMENT_SLUG:latest
 
 test_unit_job:
