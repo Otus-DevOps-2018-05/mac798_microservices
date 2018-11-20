@@ -1,3 +1,13 @@
+# дз №19 (monitoring-2)
+* файлы docker-compose разделены на запускающие приложение и запускающие средства мониторинга
+* к мониторингу добавлены cAdvisor, grafana и alertmanager
+* в grafana загружен комплексный экран для мониторинга "хозяйской" системы и контейнеров docker
+* Добавлен сбор метрик приложений в prometheus
+* Добавлены комплексные экраны для мониторинга http-запросов и бизнес-метрик приложения
+* В prometheus добавлена поддержка alertmanager 
+* Проверена работа alertmanager -- в slack-канал https://devops-team-otus.slack.com/messages/CB9U1QKPZ приходят сообщения, на странице Alerts в веб-интерфейсе prometheus показывается их статус.
+* Образы контейнеров отправлены в docker hub https://hub.docker.com/r/mac798/
+
 # дз №18 (monitoring-1)
 * реорганизована структура репозитория
 * создан docker-образ prometheus
