@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+
+  fluentd:
+    image: ${USER_NAME}/fluentd
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    networks:
+      back_net:
+        aliases:
+          - fluent
+ 
+  elasticsearch:
+    image: elasticsearch:5-alpine
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    expose:
+      - 9200
+    ports:
+      - "9200:9200"
+    networks:
+      back_net:
+        aliases:
+          - elasticsearch
+
+
+  kibana:
+    image: kibana:5
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    ports:
+      - "5601:5601"
+    networks:
+      back_net:
+        aliases:
+          - kibana
+
+  zipkin:
+    image: openzipkin/zipkin
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    ports:
+      - "9411:9411"
+    networks:
+      - back_net
+      - front_net
+
+
+networks:
+  back_net:
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: 10.0.200.0/24
+  front_net:
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: 10.0.100.0/24
+
+
