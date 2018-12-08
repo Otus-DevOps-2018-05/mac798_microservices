@@ -1,0 +1,6 @@
+gitlab_url = "http://35.228.49.152/"
+gitlab_token = "HV_od7ta42mysStPRM6w"
+runners_count = 2
+docker_host = "tcp://35.228.49.152:2376"
+docker_machine_name = "docker-gitlab"
+docker_cert_path = "/home/mac08/.docker/machine/machines/docker-gitlab"
