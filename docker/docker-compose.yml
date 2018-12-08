@@ -1,0 +1,81 @@
+version: '3.4'
+services:
+  post_db:
+    image: mongo:${MONGO_IMG_VER}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    volumes:
+      - post_db:/data/db
+    networks:
+      back_net:
+        aliases:
+          - post_db
+          - comment_db
+  ui:
+    image: ${USER_NAME}/ui:${UI_IMG_VER}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    ports:
+      - ${PUBLISHED_PORT}:9292/tcp
+      - 9292:9292/tcp
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
+    networks:
+      front_net:
+        aliases:
+          - ui
+  post:
+    image: ${USER_NAME}/post:${POST_IMG_VER}
+    environment:
+      - POST_DATABASE_HOST=post_db
+      - POST_DATABASE=posts
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    depends_on:
+      - post_db
+    ports:
+      - "5000:5000"
+    networks:
+      back_net:
+        aliases:
+          - post
+      front_net:
+        aliases:
+          - post
+
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
+
+  comment:
+    image: ${USER_NAME}/comment:${COMMENT_IMG_VER}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    networks:
+      back_net:
+        aliases:
+          - comment
+      front_net:
+        aliases:
+          - comment
+
+volumes:
+  post_db:
+
+networks:
+  front_net:
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: 10.0.100.0/24
+  back_net:
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: 10.0.200.0/24
