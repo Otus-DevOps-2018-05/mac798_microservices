@@ -1,0 +1,104 @@
+image: ruby:2.4.2
+stages:
+    - build
+    - test
+    - review
+    - stage
+    - production
+
+variables:
+    DATABASE_URL: 'mongodb://mongo/user_posts'
+#before_script:
+#    - cd reddit
+#    - gem install bundler
+#    - bundle install
+
+#create env server:
+#    stage: build
+#    image: google/cloud-sdk:alpine
+#    tags:
+#        - gcloud
+#    script:
+#        - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcloud/credentials.json
+#        - gcloud compute instances create reddit-$CI_ENVIRONMENT_SLUG --tags docker,reddit --machine-type g1-small --region europe-north1-b --image-family ubuntu-docker --disk-size 20
+
+build_job:
+    image: alpine
+    stage: build
+    tags:
+        - docker
+        - linux
+    script:
+        - echo 'Building'
+        - apk add docker
+#        - docker build -t reddit-$CI_ENVIRONMENT_SLUG:latest
+
+test_unit_job:
+    stage: test
+    services:
+        - mongo:latest
+    tags:
+        - ruby
+    script:
+        - cd reddit
+        - gem install bundler
+        - bundle install
+        - ruby simpletest.rb
+
+test_integration_job:
+    stage: test
+    tags:
+        - linux
+    script:
+        - echo 'Testing 2'
+
+deploy_dev_job:
+    stage: review
+    tags:
+        - linux
+    script:
+        - echo 'Deploy (Dev Review)'
+    environment:
+        name: dev
+        url: http://dev.example.com
+
+branch review:
+    stage: review
+    tags:
+        - docker
+    script:
+        - echo "Deploy to $CI_ENVIRONMENT_SLUG"
+#        - docker run ...
+    environment:
+        name: branch/$CI_COMMIT_REF_NAME
+        url: http://$CI_ENVIRONMENT_SLUG.example.com
+    only:
+        - branches
+    except:
+        - master
+
+staging:
+    stage: stage
+    when: manual
+    tags:
+        - linux
+    only:
+        - /^\d+\.\d+\.\d+/
+    script:
+        - echo 'Deploy'
+    environment:
+        name: stage
+        url: http://stage.example.com
+
+production:
+    stage: production
+    when: manual
+    tags:
+        - linux
+    only:
+        - /^\d+\.\d+\.\d+/
+    script:
+        - echo 'Deploy'
+    environment:
+        name: production
+        url: http://example.com
